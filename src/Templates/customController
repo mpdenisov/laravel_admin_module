@@ -1,0 +1,21 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use App\Modules\Controller;
+
+class $CLASS$ extends Controller {
+
+	/**
+	 * Index page
+	 *
+     * @param Request $request
+     *
+     * @return \Illuminate\View\View
+	 */
+	public function index()
+    {
+		return view('Admin::$PLURAL$.index');
+	}
+
+}

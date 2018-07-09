@@ -1,0 +1,117 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use App\Modules\Admin\Controllers\AdminController;
+use Redirect;
+use Schema;
+use App\Models\$MODEL$;
+use App\Modules\Admin\Requests\$CREATEREQUESTNAME$;
+use App\Modules\Admin\Requests\$UPDATEREQUESTNAME$;
+use Illuminate\Http\Request;
+$FILETRAIT$
+$RELATIONSHIP_NAMESPACES$
+
+class $CLASS$ extends AdminController {
+
+	/**
+	 * Display a listing of $PLURAL$
+	 *
+     * @param Request $request
+     *
+     * @return \Illuminate\View\View
+	 */
+	public function index(Request $request)
+    {
+        $INDEXGET$
+
+		return view('Admin::$SINGULAR$.index', compact('$PLURAL$'));
+	}
+
+	/**
+	 * Show the form for creating a new $SINGULAR$
+	 *
+     * @return \Illuminate\View\View
+	 */
+	public function create()
+	{
+	    $RELATIONSHIPS$
+	    $ENUM$
+	    return view('Admin::$SINGULAR$.create'$RELATIONSHIP_COMPACT$);
+	}
+
+	/**
+	 * Store a newly created $SINGULAR$ in storage.
+	 *
+     * @param $CREATEREQUESTNAME$|Request $request
+	 */
+	public function store($CREATEREQUESTNAME$ $request)
+	{
+	    $FILESAVING$
+		$MODEL$::create($request->all());
+
+		return redirect()->route(config('admin.route').'.$PLURAL$.index');
+	}
+
+	/**
+	 * Show the form for editing the specified $SINGULAR$.
+	 *
+	 * @param  int  $id
+     * @return \Illuminate\View\View
+	 */
+	public function edit($id)
+	{
+		$$SINGULAR$ = $MODEL$::find($id);
+	    $RELATIONSHIPS$
+	    $ENUM$
+		return view('Admin::$SINGULAR$.edit', compact('$SINGULAR$'$RELATIONSHIP_COMPACT_EDIT$));
+	}
+
+	/**
+	 * Update the specified $SINGULAR$ in storage.
+     * @param $UPDATEREQUESTNAME$|Request $request
+     *
+	 * @param  int  $id
+	 */
+	public function update($id, $UPDATEREQUESTNAME$ $request)
+	{
+		$$SINGULAR$ = $MODEL$::findOrFail($id);
+
+        $FILESAVING$
+
+		$$SINGULAR$->update($request->all());
+
+		return redirect()->route(config('admin.route').'.$PLURAL$.index');
+	}
+
+	/**
+	 * Remove the specified $SINGULAR$ from storage.
+	 *
+	 * @param  int  $id
+	 */
+	public function destroy($id)
+	{
+		$MODEL$::destroy($id);
+
+		return redirect()->route(config('admin.route').'.$PLURAL$.index');
+	}
+
+    /**
+     * Mass delete function from index page
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function massDelete(Request $request)
+    {
+        if ($request->get('toDelete') != 'mass') {
+            $toDelete = json_decode($request->get('toDelete'));
+            $MODEL$::destroy($toDelete);
+        } else {
+            $MODEL$::whereNotNull('id')->delete();
+        }
+
+        return redirect()->route(config('admin.route').'.$PLURAL$.index');
+    }
+
+}

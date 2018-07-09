@@ -1,0 +1,16 @@
+{
+    "name": "rhinoda/admin_module",
+    "description": "Role management and creating CRUD controllers",
+    "type": "laravel",
+    "require": {
+        "zizaco/entrust": "^1.9"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rhinoda",
+            "email": "info@rhinoda.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

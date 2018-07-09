@@ -1,0 +1,137 @@
+<?php
+
+namespace Rhinoda\Admin\Models;
+
+
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Rhinoda\Admin\Traits\UserRoleTrait;
+use  Rhinoda\Admin\Traits\FilesMorphTrait;
+use  Rhinoda\Admin\Traits\AdminPermissionsTrait;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+
+/**
+ * @property int $id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property string $password
+ * @property string $gender
+ * @property string $birth_date
+ * @property boolean $active
+ * @property string $created_at
+ * @property string $updated_at
+ * @property string $api_token
+ * @property string $remember_token
+ * @property Dish[] $dishes
+ */
+class User extends Authenticatable implements AuthenticatableContract
+{
+    use Authorizable, UserRoleTrait, Notifiable, FilesMorphTrait, AdminPermissionsTrait;
+
+    const MALE_GENDER = 'male';
+    const FEMALE_GENDER = 'female';
+
+    const PASSWORD_MIN_LENGTH =  6;
+
+    const ENTITY_TYPE = 'users';
+
+    function __construct(array $attributes = [])
+    {
+        $this->entity_type = static::ENTITY_TYPE;
+        parent::__construct($attributes);
+    }
+
+    /**
+     * @var array
+     */
+    protected $fillable = ['first_name', 'last_name', 'email', 'gender', 'birth_date', 'about', 'school', 'work', 'active', 'api_token', 'password'];
+
+    protected $hidden = ['password', 'remember_token'];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['avatar', 'languages', 'fullname', 'role', 'rating', 'reviews_count'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function languages()
+    {
+        return $this->belongsToMany('App\Models\Language');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+
+
+
+    public function generateToken()
+    {
+        $this->api_token = str_random(60);
+        $this->save();
+
+        return $this->api_token;
+    }
+
+    /**
+     *  User avatar
+     *
+     * @return mixed
+     */
+    public function getAvatarAttribute()
+    {
+        return $this->files()->first();
+    }
+
+    /**
+     *  User related Language entities
+     *
+     * @return mixed
+     */
+    public function getLanguagesAttribute()
+    {
+        return $this->languages()->get();
+    }
+
+    /**
+     * User full name
+     *
+     * @return string
+     */
+    public function getFullnameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * User role
+     *
+     * @return mixed
+     */
+    public function getRoleAttribute()
+    {
+        return $this->roles()->first();
+    }
+
+    /**
+     * User rating
+     *
+     * @return mixed
+     */
+    public function getRatingAttribute()
+    {
+        return ReviewHelper::countUserRating($this->id);
+    }
+
+
+}
