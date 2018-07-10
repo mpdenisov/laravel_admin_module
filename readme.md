@@ -4,26 +4,25 @@
 Role management and creating CRUD controllers
 
 ## Contents
-* [Installation](#installation)
-* [Configuration](#configuration)
-    * [Entrast](#entrast)
-        * [Description](#description)
-        * [Link to package guide](https://github.com/Zizaco/entrust#installation)
-    * [CRUD](#crud)
-    * [Controller](#controller)
-* [Usage](#usage)
-    * [CRUD](#crud-creating)
-    * [Controller](#controller-creating)
-* [Troubleshooting](#troubleshooting)
-* [License](#license)
-
-* [Contribution guidelines](#contribution-guidelines)
+- [Installation](#installation)
+- [Configuration](#configuration)
+    - [Entrast](#entrast)
+        - [Description](#description)
+        - [Link to package guide](https://github.com/Zizaco/entrust#installation)
+    - [CRUD](#crud)
+    - [Controller](#controller)
+- [Usage](#usage)
+    - [CRUD](#crud-creating)
+    - [Controller](#controller-creating)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
+- [Contribution guidelines](#contribution-guidelines)
 
 ## Installation
 
 1.Change CACHE_DRIVER=array in env.
 
-2.Remove user table migration 
+2.Remove user table from  migration 
 
 3.Install package
 
@@ -44,7 +43,7 @@ Rhinoda\Admin\AdminServiceProvider::class,
 'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
 ````
 
-6.Run the command below to publish the package Rhinoda And Entrust:
+6.Run the command below to publish  Rhinoda And Entrust files :
 
 ````
 php artisan vendor:publish
@@ -81,9 +80,9 @@ App\Providers\ModulesServiceProvider::class,
 php artisan make:auth
 ````
 
-10.1.Remove Auth Routes from  web.php
+11.Remove Auth Routes from  web.php
 
-11.Install migration 
+12.Run migration 
 
 ````
 php artisan migrate
@@ -108,6 +107,7 @@ php artisan migrate
    About Controller
    
 ## Usage
+
    ### Crud creating
    
    Content
@@ -117,6 +117,8 @@ php artisan migrate
    Content 
    
 ## Troubleshooting
+
+miss
 
 ## License
 
