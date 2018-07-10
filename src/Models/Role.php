@@ -3,7 +3,7 @@
 namespace Rhinoda\Admin\Models;
 
 use Zizaco\Entrust\EntrustRole;
-use App\Models\Menu;
+use Rhinoda\Admin\Models\Menu;
 
 /**
  * @property int $id
