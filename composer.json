@@ -12,5 +12,21 @@
             "email": "info@rhinoda.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "autoload": {
+        "classmap": [
+
+        ],
+        "psr-4": {
+
+            "Rhinoda\\Admin\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Rhinoda\\Admin\\AdminServiceProvider"
+            ]
+        }
+    }
 }
