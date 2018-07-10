@@ -9,23 +9,28 @@ Role management and creating CRUD controllers
 
 ##Installation
 
-1.Install package
+1.Change CACHE_DRIVER=array in env.
+
+2.Remove user table migration 
+
+3.Install package
 ````
 composer require rhinoda/admin_module
 ````
-3.Open your config/app.php and add the following to the providers array:
+4.Open your config/app.php and add the following to the providers array:
 ````
 Zizaco\Entrust\EntrustServiceProvider::class,
+Rhinoda\Admin\AdminServiceProvider::class,
 ````
-4.In the same config/app.php and add the following to the aliases array:
+5.In the same config/app.php and add the following to the aliases array:
 ````
 'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
 ````
-5.Run the command below to publish the package Rhinoda And Entrust:
+6.Run the command below to publish the package Rhinoda And Entrust:
 ````
 php artisan vendor:publish
 ````
-6.Open your config/auth.php and add the following to it:
+7.Open your config/auth.php and add the following to it:
 ````
 'providers' => [
     'users' => [
@@ -35,23 +40,25 @@ php artisan vendor:publish
     ],
 ],
 ````
-7.Open your config/app.php and add the following to the providers array:
+8.Open your config/app.php and add the following to the providers array:
 ````
 App\Providers\ModulesServiceProvider::class,
 ````
-8.Open your config/entrust.php and change  path to models for Role and Permission models
+9.Open your config/entrust.php and change  path to models for Role and Permission models
 ````
 'role' => 'App\Models\Role',
 'permission' => 'App\Models\Permission',
 ````
-9.Change CACHE_DRIVER=array in env.
 
-2.Laravel Auth
+10.Laravel Auth
 ````
 php artisan make:auth
 ````
-2.1.Remove Auth Routes from  web.php
-
+10.1.Remove Auth Routes from  web.php
+11. Install migration 
+````
+php artisan migrate
+````
 
 ##License
 Rhinoda Admin is free software distributed under the terms of the MIT license. 
