@@ -3,7 +3,8 @@
     "description": "Role management and creating CRUD controllers",
     "type": "laravel",
     "require": {
-        "zizaco/entrust": "^1.9"
+        "zizaco/entrust": "^1.9",
+        "laravelcollective/html":"^5.4.0"
     },
     "license": "MIT",
     "authors": [
