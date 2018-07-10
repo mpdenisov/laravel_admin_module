@@ -4,10 +4,10 @@
 Role management and creating CRUD controllers
 
 ## Contents
-* [Installation](##Installation)
-* [Troubleshooting](##Troubleshooting)
-* [License](##License)
-* [Contribution guidelines](##Contribution guidelines)
+* [Installation](#installation)
+* [Troubleshooting](#troubleshooting)
+* [License](#license)
+* [Contribution guidelines](#contribution guidelines)
 
 ## Installation
 
