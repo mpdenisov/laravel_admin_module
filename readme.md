@@ -5,8 +5,18 @@ Role management and creating CRUD controllers
 
 ## Contents
 * [Installation](#installation)
+* [Configuration](#configuration)
+    * [Entrast](#entrast)
+        * [Description](#description)
+        * [Link to package guide](https://github.com/Zizaco/entrust#installation)
+    * [CRUD](#crud)
+    * [Controller](#controller)
+* [Usage](#usage)
+    * [CRUD](#crud-creating)
+    * [Controller](#controller-creating)
 * [Troubleshooting](#troubleshooting)
 * [License](#license)
+
 * [Contribution guidelines](#contribution-guidelines)
 
 ## Installation
@@ -73,12 +83,39 @@ php artisan make:auth
 
 10.1.Remove Auth Routes from  web.php
 
-11. Install migration 
+11.Install migration 
 
 ````
 php artisan migrate
 ````
 
+## Configuration
+
+   ### Entrast
+    
+   In this module already created all general models, which will be used.
+
+   For  more information about Role-based Permission: 
+   
+   [Link to package guide](https://github.com/Zizaco/entrust#installation)
+   
+   ### CRUD
+   
+   About CRUD
+   
+   ### Controller
+   
+   About Controller
+   
+## Usage
+   ### Crud creating
+   
+   Content
+   
+   ### Controller creating
+   
+   Content 
+   
 ## Troubleshooting
 
 ## License
