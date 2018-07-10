@@ -7,7 +7,7 @@ Role management and creating CRUD controllers
 * [Installation](#installation)
 * [Troubleshooting](#troubleshooting)
 * [License](#license)
-* [Contribution guidelines](#contribution guidelines)
+* [Contribution guidelines](#contribution-guidelines)
 
 ## Installation
 
@@ -78,6 +78,8 @@ php artisan make:auth
 ````
 php artisan migrate
 ````
+
+## Troubleshooting
 
 ## License
 
