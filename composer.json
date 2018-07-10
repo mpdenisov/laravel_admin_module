@@ -26,7 +26,7 @@
     "extra": {
         "laravel": {
             "providers": [
-
+                "Rhinoda\\Admin\\AdminServiceProvider"
             ]
         }
     }
