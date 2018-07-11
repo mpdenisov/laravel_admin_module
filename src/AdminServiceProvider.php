@@ -3,7 +3,7 @@
 namespace Rhinoda\Admin;
 
 use Illuminate\Support\ServiceProvider;
-
+use Rhinoda\Admin\Commands\AdminInstall;
 class AdminServiceProvider extends ServiceProvider
 {
     /**
@@ -55,6 +55,15 @@ class AdminServiceProvider extends ServiceProvider
             // Adding Observer
             __DIR__ . DIRECTORY_SEPARATOR . 'Observers'.DIRECTORY_SEPARATOR . 'publish'  => app_path('Modules/Admin/Observers'),
         ], 'RhinodAdmin');
+
+
+        // Register commands
+        $this->app->bind('admin:install', function ($app) {
+            return new AdminInstall();
+        });
+        $this->commands([
+            'admin:install'
+        ]);
 
     }
 

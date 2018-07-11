@@ -12,6 +12,7 @@ Role management and creating CRUD controllers
     - [CRUD](#crud)
     - [Controller](#controller)
 - [Usage](#usage)
+    - [First User](#first-user)
     - [CRUD](#crud-creating)
     - [Controller](#controller-creating)
 - [Troubleshooting](#troubleshooting)
@@ -109,6 +110,10 @@ php artisan migrate
    
 ## Usage
 
+   ### First User
+    
+    php artisan admin:install
+    
    ### Crud creating
    
    Content
