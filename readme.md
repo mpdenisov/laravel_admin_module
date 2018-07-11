@@ -9,10 +9,10 @@ Role management and creating CRUD controllers
     - [Entrast](#entrast)
         - [Description](#description)
         - [Link to package guide](https://github.com/Zizaco/entrust#installation)
-    - [CRUD](#crud)
-    - [Controller](#controller)
+
 - [Usage](#usage)
     - [First User](#first-user)
+    - [Menu item creating](#item-creating) 
     - [CRUD](#crud-creating)
     - [Controller](#controller-creating)
 - [Troubleshooting](#troubleshooting)
@@ -100,32 +100,42 @@ php artisan migrate
    
    [Link to package guide](https://github.com/Zizaco/entrust#installation)
    
-   ### CRUD
-   
-   About CRUD
-   
-   ### Controller
-   
-   About Controller
+ 
    
 ## Usage
 
    ### First User
     
     php artisan admin:install
-    
-   ### Crud creating
    
-   Content
+   ### Item creating 
    
-   ### Controller creating
+   ### CRUD
+     
+   After creation CRUD controller, immediately created:
+     
+   * Model in App\Models folder
    
-   Content 
+   * Controller in App\Modules\Admin\Controllers folder
+   
+   * Requests in  App\Modules\Admin\Requests folder
+   
+   * views  in  App\Modules\Admin\resource\views\\[crud_name] folder
+     
+   ### Controller
+     
+   After creation custom controller, immediately created:
+   
+   * Controller in App\Modules\Admin\Controllers folder
+   
+   * views  in  App\Modules\Admin\resource\views\\[crud_name] folder
+   
+   
    
 ## Troubleshooting
 
-   miss
-
+  
+  
 ## License
 
 Rhinoda Admin is free software distributed under the terms of the MIT license. 
