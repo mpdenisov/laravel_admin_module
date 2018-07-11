@@ -34,6 +34,7 @@ composer require rhinoda/admin_module
 
 ````
 Zizaco\Entrust\EntrustServiceProvider::class,
+
 Rhinoda\Admin\AdminServiceProvider::class,
 ````
 
@@ -118,7 +119,7 @@ php artisan migrate
    
 ## Troubleshooting
 
-miss
+   miss
 
 ## License
 
@@ -129,4 +130,5 @@ Rhinoda Admin is free software distributed under the terms of the MIT license.
 Support follows PSR-1 and PSR-4 PHP coding standards, and semantic versioning.
 
 Please report any issue you find in the issues page.
+
 Pull requests are welcome.
