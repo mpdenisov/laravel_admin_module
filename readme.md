@@ -9,7 +9,6 @@ Role management and creating CRUD controllers
     - [Entrast](#entrast)
         - [Description](#description)
         - [Link to package guide](https://github.com/Zizaco/entrust#installation)
-
 - [Usage](#usage)
     - [First User](#first-user)
     - [Menu item creating](#item-creating) 
