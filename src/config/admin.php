@@ -15,7 +15,7 @@ return [
      */
 
     // Default route
-    'route'              => 'admin',
+    'route'              => 'administrator',
     // Default home route
     'homeRoute'          => 'dashboard',
 
