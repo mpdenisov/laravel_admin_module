@@ -6,30 +6,36 @@
             data-slide-speed="200">
 
             @role(\App\Models\Role::ADMIN)
-                <li @if(Request::path() == config('admin.route').'/menu') class="active" @endif>
-                    <a href="{{ url(config('admin.route').'/menu') }}">
-                        <i class="fa fa-list"></i>
-                        <span class="title">{{ trans('Admin::admin.partials-sidebar-menu') }}</span>
-                    </a>
-                </li>
-                <li @if(Request::path() == 'users') class="active" @endif>
-                    <a href="{{ url('users') }}">
-                        <i class="fa fa-users"></i>
-                        <span class="title">{{ trans('Admin::admin.partials-sidebar-users') }}</span>
-                    </a>
-                </li>
-                <li @if(Request::path() == 'roles') class="active" @endif>
-                    <a href="{{ url('roles') }}">
-                        <i class="fa fa-gavel"></i>
-                        <span class="title">{{ trans('Admin::admin.partials-sidebar-roles') }}</span>
-                    </a>
-                </li>
-                <li @if(Request::path() == config('admin.route').'/actions') class="active" @endif>
-                    <a href="{{ url(config('admin.route').'/actions') }}">
-                        <i class="fa fa-users"></i>
-                        <span class="title">{{ trans('Admin::admin.partials-sidebar-user-actions') }}</span>
-                    </a>
-                </li>
+            <li @if(Request::path() == config('admin.route').'/menu') class="active" @endif>
+                <a href="{{ url(config('admin.route').'/menu') }}">
+                    <i class="fa fa-list"></i>
+                    <span class="title">{{ trans('Admin::admin.partials-sidebar-menu') }}</span>
+                </a>
+            </li>
+            <li @if(Request::path() == 'users') class="active" @endif>
+                <a href="{{ url('users') }}">
+                    <i class="fa fa-users"></i>
+                    <span class="title">{{ trans('Admin::admin.partials-sidebar-users') }}</span>
+                </a>
+            </li>
+            <li @if(Request::path() == 'roles') class="active" @endif>
+                <a href="{{ url('roles') }}">
+                    <i class="fa fa-gavel"></i>
+                    <span class="title">{{ trans('Admin::admin.partials-sidebar-roles') }}</span>
+                </a>
+            </li>
+            <li @if(Request::path() == config('admin.route').'/files') class="active" @endif>
+                <a href="{{ route('files') }}">
+                    <i class="fa fa-gavel"></i>
+                    <span class="title">Files</span>
+                </a>
+            </li>
+            <li @if(Request::path() == config('admin.route').'/actions') class="active" @endif>
+                <a href="{{ url(config('admin.route').'/actions') }}">
+                    <i class="fa fa-users"></i>
+                    <span class="title">{{ trans('Admin::admin.partials-sidebar-user-actions') }}</span>
+                </a>
+            </li>
             @endrole
 
             @foreach($menus as $menu)
