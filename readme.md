@@ -34,7 +34,6 @@ composer require rhinoda/admin_module
 
 ````
 Zizaco\Entrust\EntrustServiceProvider::class,
-
 Rhinoda\Admin\AdminServiceProvider::class,
 ````
 
