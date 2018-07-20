@@ -54,6 +54,8 @@ class AdminServiceProvider extends ServiceProvider
             __DIR__ . DIRECTORY_SEPARATOR . 'Providers'. DIRECTORY_SEPARATOR . 'ModulesServiceProvider' => app_path('Providers/ModulesServiceProvider.php'),
             // Adding Observer
             __DIR__ . DIRECTORY_SEPARATOR . 'Observers'.DIRECTORY_SEPARATOR . 'publish'  => app_path('Modules/Admin/Observers'),
+            // Adding Services
+            __DIR__ . DIRECTORY_SEPARATOR . 'Services'.DIRECTORY_SEPARATOR . 'publish'  => app_path('Modules/Admin/Services'),
         ], 'RhinodAdmin');
 
 

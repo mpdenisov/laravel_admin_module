@@ -132,4 +132,38 @@ Route::group([
         'as'   => 'actions.ajax',
         'uses' => 'UserActionsController@table'
     ]);
+
+    Route::get(config('admin.route').'/files',[
+        'as'   => 'files',
+        'uses' => 'FileController@index'
+    ]);
+    Route::get(config('admin.route').'/files/{folder}',[
+        'as'   => 'folder',
+        'uses' => 'FileController@folder'
+    ]);
+    Route::get(config('admin.route').'/files/{folder}/create-folder',[
+        'as'   => 'folder.create',
+        'uses' => 'FileController@createFolder'
+    ]);
+    Route::get(config('admin.route').'/files/{folder}/delete-file',[
+        'as'   => 'file.delete',
+        'uses' => 'FileController@deleteFile'
+    ]);
+    Route::post(config('admin.route').'/files/{folder}/upload-file',[
+        'as'   => 'file.upload',
+        'uses' => 'FileController@uploadFile'
+    ]);
+    Route::get(config('admin.route').'/files/{folder}/rename',[
+        'as'   => 'file.rename',
+        'uses' => 'FileController@edit'
+    ]);
+    Route::post(config('admin.route').'/files/{folder}/rename',[
+        'as'   => 'file.rename',
+        'uses' => 'FileController@rename'
+    ]);
+    Route::post(config('admin.route').'/files/{folder}/move',[
+        'as'   => 'file.move',
+        'uses' => 'FileController@move'
+    ]);
+
 });

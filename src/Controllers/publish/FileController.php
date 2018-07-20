@@ -3,115 +3,140 @@
 namespace App\Modules\Admin\Controllers;
 
 use App\Modules\Controller;
+
+use function Couchbase\defaultDecoder;
+use Illuminate\Support\Facades\Storage;
 use Redirect;
+use  App\Modules\Admin\Services\FileService;
 use Schema;
-use App\Models\File;
 use App\Http\Requests\CreateFilesRequest;
 use App\Http\Requests\UpdateFilesRequest;
 use Illuminate\Http\Request;
+use function Sodium\add;
 
 
-
-class FileController extends Controller {
-
-	/**
-	 * Display a listing of files
-	 *
-     * @param Request $request
-     *
-     * @return \Illuminate\View\View
-	 */
-	public function index(Request $request)
-    {
-        $files = File::all();
-
-		return view('Admin::file.index', compact('files'));
-	}
-
-	/**
-	 * Show the form for creating a new files
-	 *
-     * @return \Illuminate\View\View
-	 */
-	public function create()
-	{
-	    
-	    
-	    return view('Admin::file.create');
-	}
-
-	/**
-	 * Store a newly created files in storage.
-	 *
-     * @param CreateFilesRequest|Request $request
-	 */
-	public function store(CreateFilesRequest $request)
-	{
-	    
-		File::create($request->all());
-
-		return redirect()->route(config('admin.route').'.file.index');
-	}
-
-	/**
-	 * Show the form for editing the specified files.
-	 *
-	 * @param  int  $id
-     * @return \Illuminate\View\View
-	 */
-	public function edit($id)
-	{
-		$files = File::find($id);
-	    
-	    
-		return view('Admin::file.edit', compact('files'));
-	}
-
-	/**
-	 * Update the specified files in storage.
-     * @param UpdateFilesRequest|Request $request
-     *
-	 * @param  int  $id
-	 */
-	public function update($id, UpdateFilesRequest $request)
-	{
-		$files = File::findOrFail($id);
-
-        
-
-		$files->update($request->all());
-
-		return redirect()->route(config('admin.route').'.file.index');
-	}
-
-	/**
-	 * Remove the specified files from storage.
-	 *
-	 * @param  int  $id
-	 */
-	public function destroy($id)
-	{
-		File::destroy($id);
-
-		return redirect()->route(config('admin.route').'.file.index');
-	}
+class FileController extends Controller
+{
 
     /**
-     * Mass delete function from index page
+     * Display a listing of files
+     *
      * @param Request $request
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
-    public function massDelete(Request $request)
+    public function index(Request $request)
     {
-        if ($request->get('toDelete') != 'mass') {
-            $toDelete = json_decode($request->get('toDelete'));
-            File::destroy($toDelete);
-        } else {
-            File::whereNotNull('id')->delete();
-        }
-
-        return redirect()->route(config('admin.route').'.file.index');
+        $files = scandir(public_path('admin'));
+        unset($files[0]);
+        unset($files[1]);
+        $path = 'general_folder';
+        $name = '';
+        return view('Admin::file.index', compact('files', 'name', 'path'));
     }
 
+    public function folder(Request $request, $name)
+    {
+
+        $pathroute = $name;
+        $path = '';
+        $dir = explode("*", $name);
+        $name = FileService::namecreator($dir);
+
+        unset($dir[count($dir) - 1]);
+
+        $path = FileService::pathcreator($dir);
+        $files = scandir(public_path('admin' . $path . '/' . $name));
+        $path = $pathroute;
+        unset($files[1]);
+        if ($request->ajax()) {
+            return view('Admin::file.directory', compact(['files', 'name']));
+        }
+
+        if (count($dir) == 0) {
+
+            return redirect(route('files'));
+        }
+
+        return view('Admin::file.index', compact(['files', 'name', 'path']));
+
+    }
+
+    public function createFolder($name)
+    {
+        $pathroute = $name;
+        $path = '';
+        $dir = explode("*", $name);
+        $name = FileService::namecreator($dir);
+        unset($dir[count($dir) - 1]);
+        $path = FileService::pathcreator($dir);
+        mkdir(public_path('admin' . $path . '/' . $name . '/newFolder'), 0700);
+        return redirect(route('folder', $folder = $pathroute));
+    }
+
+    public function uploadFile(Request $request, $name)
+    {
+
+        $file = $request->file('file');
+        $path = '';
+        $pathroute = $name;
+        $dir = explode("*", $name);
+        $name = FileService::namecreator($dir);
+        unset($dir[count($dir) - 1]);
+        $path = FileService::pathcreator($dir);
+        $request->file('file')->move(public_path('/admin/' . $path . '/' . $name), $file->getClientOriginalName());
+        return redirect(route('folder', $folder = $pathroute));
+    }
+
+    public function deleteFile($name)
+    {
+
+        $path = '';
+        $dir = explode("*", $name);
+        $name = FileService::namecreator($dir);
+        unset($dir[count($dir) - 1]);
+        $path = FileService::pathcreator($dir);
+        $pathroute = FileService::parentroutecreator($dir);
+        FileService::deleteitem($path, $name);
+        return redirect(route('folder', $folder = $pathroute));
+    }
+
+    public function edit($name)
+    {
+        if (in_array('*', str_split($name))) {
+
+            $dir = explode("*", $name);
+            $item = end($dir);
+        }
+
+        return view('Admin::file.edit', compact([$name => 'name', 'item']));
+    }
+
+    public function rename($name, Request $request)
+    {
+
+        $newname = $request->newname;
+        $dir = explode("*", $name);
+        $name = FileService::namecreator($dir);
+        unset($dir[count($dir) - 1]);
+        $path = FileService::pathcreator($dir);
+        $parentroute = FileService::parentroutecreator($dir);
+        rename(public_path('/admin' . $path . '/' . $name), public_path('/admin' . $path . '/' . $newname));
+        return redirect(route('folder', $folder = $parentroute));
+    }
+
+
+    public function move(Request $request, $name)
+    {
+        $newpath = $request->newpath;
+        $dir = explode("*", $name);
+        $name = FileService::namecreator($dir);
+        unset($dir[count($dir) - 1]);
+        $path = FileService::pathcreator($dir);
+        $dir = explode("/", $newpath);
+        $parentroute = FileService::parentroutecreator($dir);
+
+        rename(public_path('/admin' . $path . '/' . $name),public_path($newpath.'/'.$name));
+        return redirect(route('folder', $folder = $parentroute));
+    }
 }
