@@ -5,19 +5,17 @@
 
     <div class="row">
         <div class="col-xs-12 form-group">
-            <a  href="{{route('folder.create',$folder=$path)}}"   class="btn btn-primary">Create Folder</a>
+            <a href="{{route('folder.create',$folder=$path)}}" class="btn btn-primary">Create Folder</a>
         </div>
     </div>
-    <form  action="{{ route('file.upload',$folder=$path)}}" method="POST" enctype="multipart/form-data">
-        {{ csrf_field() }}
-        <div class="row">
-            <div class="col-md-12"><input class="" type="file" name="file"></div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-12"><input class="" type="submit" value=" Upload "/></div>
-        </div>
-    </form>
+
+    <br>
+
+    {!! Form::open([ 'route' => [ 'file.upload',$folder=$path ], 'files' => true, 'enctype' => 'multipart/form-data', 'class' => 'dropzone', 'id' => 'image-upload' ]) !!}
+
+    {!! Form::close() !!}
+    <br>
+    <br>
     <br>
     <div class="directory ">
         @include('Admin::file.directory')

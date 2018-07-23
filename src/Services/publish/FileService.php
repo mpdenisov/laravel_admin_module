@@ -29,7 +29,7 @@ class FileService
 
         $path = '';
         foreach ($dir as $item) {
-            if ($item == 'general_folder'||$item == 'admin') {
+            if ($item == 'general_folder' || $item == 'admin') {
             } else {
                 $path .= $item . '*';
             }
@@ -55,5 +55,20 @@ class FileService
             $name = '';
         }
         return $name;
+    }
+
+    public static function backpath($dir)
+    {
+        $path = '';
+        for ($i=0;$i<count($dir);$i++){
+            if ($i==count($dir)-1){
+                $path .= $dir[$i] ;
+            }
+            else{
+                $path .= $dir[$i] . '*';
+            }
+        }
+
+        return $path;
     }
 }

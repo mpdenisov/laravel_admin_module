@@ -30,6 +30,7 @@ class FileController extends Controller
         $files = scandir(public_path('admin'));
         unset($files[0]);
         unset($files[1]);
+        $files['backpath']=null;
         $path = 'general_folder';
         $name = '';
         return view('Admin::file.index', compact('files', 'name', 'path'));
@@ -47,8 +48,10 @@ class FileController extends Controller
 
         $path = FileService::pathcreator($dir);
         $files = scandir(public_path('admin' . $path . '/' . $name));
+
         $path = $pathroute;
         unset($files[1]);
+
         if ($request->ajax()) {
             return view('Admin::file.directory', compact(['files', 'name']));
         }
@@ -57,7 +60,7 @@ class FileController extends Controller
 
             return redirect(route('files'));
         }
-
+        $files['backpath']=FileService::backpath($dir);
         return view('Admin::file.index', compact(['files', 'name', 'path']));
 
     }
@@ -76,7 +79,6 @@ class FileController extends Controller
 
     public function uploadFile(Request $request, $name)
     {
-
         $file = $request->file('file');
         $path = '';
         $pathroute = $name;
@@ -84,8 +86,13 @@ class FileController extends Controller
         $name = FileService::namecreator($dir);
         unset($dir[count($dir) - 1]);
         $path = FileService::pathcreator($dir);
-        $request->file('file')->move(public_path('/admin/' . $path . '/' . $name), $file->getClientOriginalName());
-        return redirect(route('folder', $folder = $pathroute));
+        $upload_success = $request->file('file')->move(public_path('/admin/' . $path . '/' . $name), $file->getClientOriginalName());
+        if ($upload_success) {
+            return response()->json($upload_success, 200);
+        } // Else, return error 400
+        else {
+            return response()->json('error', 400);
+        }
     }
 
     public function deleteFile($name)
@@ -98,6 +105,7 @@ class FileController extends Controller
         $path = FileService::pathcreator($dir);
         $pathroute = FileService::parentroutecreator($dir);
         FileService::deleteitem($path, $name);
+
         return redirect(route('folder', $folder = $pathroute));
     }
 
@@ -136,7 +144,7 @@ class FileController extends Controller
         $dir = explode("/", $newpath);
         $parentroute = FileService::parentroutecreator($dir);
 
-        rename(public_path('/admin' . $path . '/' . $name),public_path($newpath.'/'.$name));
+        rename(public_path('/admin' . $path . '/' . $name), public_path($newpath . '/' . $name));
         return redirect(route('folder', $folder = $parentroute));
     }
 }
