@@ -14,6 +14,7 @@ Role management and creating CRUD controllers
     - [Menu item creating](#item-creating) 
     - [CRUD](#crud)
     - [Controller](#controller)
+    - [File management](#file-management)
 - [Troubleshooting](#troubleshooting)
 - [License](#license)
 - [Contribution guidelines](#contribution-guidelines)
@@ -128,8 +129,13 @@ php artisan migrate
    
    * views  in  App\Modules\Admin\resource\views\\[crud_name] folder
    
+   ### File management
    
+   Directory: public/admin,
    
+   You can upload and edit files.
+   
+     
 ## Troubleshooting
 
   
