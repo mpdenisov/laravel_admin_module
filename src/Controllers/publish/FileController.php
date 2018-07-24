@@ -52,9 +52,7 @@ class FileController extends Controller
         $path = $pathroute;
         unset($files[1]);
 
-        if ($request->ajax()) {
-            return view('Admin::file.directory', compact(['files', 'name']));
-        }
+
 
         if (count($dir) == 0) {
 
@@ -67,6 +65,7 @@ class FileController extends Controller
 
     public function createFolder($name)
     {
+
         $pathroute = $name;
         $path = '';
         $dir = explode("*", $name);
@@ -103,6 +102,7 @@ class FileController extends Controller
         $name = FileService::namecreator($dir);
         unset($dir[count($dir) - 1]);
         $path = FileService::pathcreator($dir);
+
         $pathroute = FileService::parentroutecreator($dir);
         FileService::deleteitem($path, $name);
 
@@ -130,6 +130,7 @@ class FileController extends Controller
         $path = FileService::pathcreator($dir);
         $parentroute = FileService::parentroutecreator($dir);
         rename(public_path('/admin' . $path . '/' . $name), public_path('/admin' . $path . '/' . $newname));
+
         return redirect(route('folder', $folder = $parentroute));
     }
 
