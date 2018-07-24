@@ -27,13 +27,25 @@ class FileService
     public static function parentroutecreator($dir)
     {
 
+
         $path = '';
-        foreach ($dir as $item) {
-            if ($item=='general_folder') {
+
+
+        for ($i = 0; $i < count($dir); $i++) {
+            if ($dir[$i]=='admin'){
+                $dir[$i]='general_folder';
+            }
+            if (($i == count($dir) - 1) && ($dir[$i] != '')) {
+                $path .= $dir[$i];
+            } elseif ($dir[$i] == '') {
+
+            } elseif ($i != count($dir) - 1 && $dir[$i + 1] == '') {
+                $path .= $dir[$i];
             } else {
-                $path .= $item . '*';
+                $path .= $dir[$i] . '*';
             }
         }
+
 
         return $path;
     }
@@ -63,13 +75,18 @@ class FileService
         $path = '';
 
 
-        for ($i=0;$i<count($dir);$i++){
-            if ($i==count($dir)-1||$dir[$i+1]==''){
-            }
-            else{
+        for ($i = 0; $i < count($dir); $i++) {
+            if (($i == count($dir) - 1) && ($dir[$i] != '')) {
+                $path .= $dir[$i];
+            } elseif ($dir[$i] == '') {
+
+            } elseif ($i != count($dir) - 1 && $dir[$i + 1] == '') {
+                $path .= $dir[$i];
+            } else {
                 $path .= $dir[$i] . '*';
             }
         }
+
 
         return $path;
     }

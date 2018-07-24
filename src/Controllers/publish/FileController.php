@@ -127,8 +127,11 @@ class FileController extends Controller
         $dir = explode("*", $name);
         $name = FileService::namecreator($dir);
         unset($dir[count($dir) - 1]);
+
         $path = FileService::pathcreator($dir);
+
         $parentroute = FileService::parentroutecreator($dir);
+
         rename(public_path('/admin' . $path . '/' . $name), public_path('/admin' . $path . '/' . $newname));
 
         return redirect(route('folder', $folder = $parentroute));
