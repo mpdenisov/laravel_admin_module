@@ -70,24 +70,5 @@ class FileService
         return $name;
     }
 
-    public static function backpath($dir)
-    {
-        $path = '';
 
-
-        for ($i = 0; $i < count($dir); $i++) {
-            if (($i == count($dir) - 1) && ($dir[$i] != '')) {
-                $path .= $dir[$i];
-            } elseif ($dir[$i] == '') {
-
-            } elseif ($i != count($dir) - 1 && $dir[$i + 1] == '') {
-                $path .= $dir[$i];
-            } else {
-                $path .= $dir[$i] . '*';
-            }
-        }
-
-
-        return $path;
-    }
 }
