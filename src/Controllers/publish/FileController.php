@@ -59,31 +59,26 @@ class FileController extends Controller
 
     }
 
-    public function createFolder($name)
+    public function createFolder(Request $request, $name)
     {
-
         $pathroute = $name;
-
         $dir = explode("*", $name);
         $name = FileService::namecreator($dir);
         unset($dir[count($dir) - 1]);
         $path = FileService::pathcreator($dir);
-        mkdir(public_path('admin' . $path . '/' . $name . '/newFolder'), 0700);
+        mkdir(public_path('admin' . $path . '/' . $name . '/'.$request->name), 0700);
         return redirect(route('folder', $folder = $pathroute));
     }
 
     public function uploadFile(Request $request, $name)
     {
         $file = $request->file('file');
-
-
         $dir = explode("*", $name);
         $name = FileService::namecreator($dir);
         unset($dir[count($dir) - 1]);
         $path = FileService::pathcreator($dir);
         $upload_success = $request->file('file')->move(public_path('/admin/' . $path . '/' . $name), $file->getClientOriginalName());
         if ($upload_success) {
-
             return response()->json($upload_success, 200);
 
         } // Else, return error 400
@@ -119,7 +114,7 @@ class FileController extends Controller
         return view('Admin::file.edit', compact([$name => 'name', 'item']));
     }
 
-    public function rename($name, Request $request)
+    public function rename($name, UpdateFilesRequest $request)
     {
 
         $newname = $request->newname;

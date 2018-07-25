@@ -26,14 +26,10 @@ class FileService
 
     public static function parentroutecreator($dir)
     {
-
-
         $path = '';
-
-
         for ($i = 0; $i < count($dir); $i++) {
-            if ($dir[$i]=='admin'){
-                $dir[$i]='general_folder';
+            if ($dir[$i] == 'admin') {
+                $dir[$i] = 'general_folder';
             }
             if (($i == count($dir) - 1) && ($dir[$i] != '')) {
                 $path .= $dir[$i];
@@ -45,8 +41,6 @@ class FileService
                 $path .= $dir[$i] . '*';
             }
         }
-
-
         return $path;
     }
 
