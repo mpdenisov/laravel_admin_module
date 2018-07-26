@@ -6,6 +6,8 @@
 <script src="//cdn.ckeditor.com/4.5.4/full/ckeditor.js"></script>
 <script src="{{ url('admin/js') }}/bootstrap.min.js"></script>
 <script src="{{ url('admin/js') }}/main.js"></script>
+<script src="{{ url('admin/js') }}/dropzone.js"></script>
+<script src="{{ url('admin/js') }}/dropzone-amd-module.js"></script>
 
 <script>
 
