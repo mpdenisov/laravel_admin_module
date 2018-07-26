@@ -4,7 +4,8 @@
     "type": "laravel",
     "require": {
         "zizaco/entrust": "^1.9",
-        "laravelcollective/html":"^5.4.0"
+        "laravelcollective/html":"^5.4.0",
+        "yajra/laravel-datatables-oracle":"~8.0"
     },
     "license": "MIT",
     "authors": [

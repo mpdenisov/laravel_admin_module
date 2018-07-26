@@ -133,5 +133,11 @@ class User extends Authenticatable implements AuthenticatableContract
         return ReviewHelper::countUserRating($this->id);
     }
 
+    public static function boot()
+    {
+        parent::boot();
+
+        User::observe(new UserActionsObserver);
+    }
 
 }

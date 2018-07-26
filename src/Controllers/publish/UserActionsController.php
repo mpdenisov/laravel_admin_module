@@ -2,7 +2,7 @@
 namespace App\Modules\Admin\Controllers;
 
 use App\Modules\Controller;
-use Laraveldaily\Quickadmin\Models\UsersLogs;
+use App\Models\UsersLogs;
 use Yajra\Datatables\Datatables;
 
 class UserActionsController extends Controller
