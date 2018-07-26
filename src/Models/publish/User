@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-
+use App\Modules\Admin\Observers\UserActionsObserver;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Rhinoda\Admin\Traits\UserRoleTrait;
