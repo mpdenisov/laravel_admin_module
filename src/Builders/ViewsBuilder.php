@@ -288,6 +288,10 @@ class ViewsBuilder
     private function publish($template)
     {
 
+        if (! file_exists(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin'))) {
+            mkdir(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' ));
+            chmod(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin'), 0777);
+        }
         $path = 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin';
         if (! file_exists(base_path($path . DIRECTORY_SEPARATOR . $this->path))) {
             mkdir(base_path($path . DIRECTORY_SEPARATOR . $this->path));
@@ -303,7 +307,10 @@ class ViewsBuilder
 
     private function publishCustom($template)
     {
-
+        if (! file_exists(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin'))) {
+            mkdir(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' ));
+            chmod(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin'), 0777);
+        }
         $path = 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . $this->path;
         if (! file_exists(base_path($path))) {
             mkdir(base_path($path ));
