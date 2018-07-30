@@ -7,7 +7,7 @@ use Rhinoda\Admin\Cache\QuickCache;
 class RequestBuilder
 {
     // Request namespace
-    private $namespace = 'App\Modules\Admin\Requests';
+    private $namespace = 'App\Http\Requests';
     // Template
     private $template;
     // Names
@@ -192,13 +192,12 @@ class RequestBuilder
      */
     private function publish($template)
     {
-        $path = 'Modules' . DIRECTORY_SEPARATOR . 'Admin' . DIRECTORY_SEPARATOR . 'Requests';
-        if (! file_exists(app_path($path))) {
-            mkdir(app_path($path), 0777, true);
+        if (! file_exists(app_path('Http' . DIRECTORY_SEPARATOR . 'Requests'))) {
+            mkdir(app_path('Http' . DIRECTORY_SEPARATOR . 'Requests'), 0777, true);
         }
-        file_put_contents(app_path($path . DIRECTORY_SEPARATOR . 'Create' . $this->fileName),
+        file_put_contents(app_path('Http' . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . 'Create' . $this->fileName),
             $template[0]);
-        file_put_contents(app_path($path . DIRECTORY_SEPARATOR . 'Update' . $this->fileName),
+        file_put_contents(app_path('Http' . DIRECTORY_SEPARATOR . 'Requests' . DIRECTORY_SEPARATOR . 'Update' . $this->fileName),
             $template[1]);
     }
 

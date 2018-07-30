@@ -49,7 +49,7 @@ if (Schema::hasTable('menus')) {
             'middleware' => ['web', 'auth'],
             'prefix'     => config('admin.route'),
             'as'         => config('admin.route') . '.',
-            'namespace'  => 'App\Modules\Admin\Controllers',
+            'namespace'  => 'App\Http\Controllers\Admin',
         ], function () use ($menus) {
             foreach ($menus as $menu) {
                 switch ($menu->menu_type) {

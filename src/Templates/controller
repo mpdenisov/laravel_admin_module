@@ -6,8 +6,8 @@ use App\Modules\Admin\Controllers\AdminController;
 use Redirect;
 use Schema;
 use App\Models\$MODEL$;
-use App\Modules\Admin\Requests\$CREATEREQUESTNAME$;
-use App\Modules\Admin\Requests\$UPDATEREQUESTNAME$;
+use App\Http\Requests\$CREATEREQUESTNAME$;
+use App\Http\Requests\$UPDATEREQUESTNAME$;
 use Illuminate\Http\Request;
 $FILETRAIT$
 $RELATIONSHIP_NAMESPACES$
@@ -25,7 +25,7 @@ class $CLASS$ extends AdminController {
     {
         $INDEXGET$
 
-		return view('Admin::$SINGULAR$.index', compact('$PLURAL$'));
+		return view('admin.$SINGULAR$.index', compact('$PLURAL$'));
 	}
 
 	/**
@@ -37,7 +37,7 @@ class $CLASS$ extends AdminController {
 	{
 	    $RELATIONSHIPS$
 	    $ENUM$
-	    return view('Admin::$SINGULAR$.create'$RELATIONSHIP_COMPACT$);
+	    return view('admin.$SINGULAR$.create'$RELATIONSHIP_COMPACT$);
 	}
 
 	/**
@@ -64,7 +64,7 @@ class $CLASS$ extends AdminController {
 		$$SINGULAR$ = $MODEL$::find($id);
 	    $RELATIONSHIPS$
 	    $ENUM$
-		return view('Admin::$SINGULAR$.edit', compact('$SINGULAR$'$RELATIONSHIP_COMPACT_EDIT$));
+		return view('admin.$SINGULAR$.edit', compact('$SINGULAR$'$RELATIONSHIP_COMPACT_EDIT$));
 	}
 
 	/**

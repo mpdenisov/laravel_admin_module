@@ -7,10 +7,8 @@ use App\Modules\Controller;
 use function Couchbase\defaultDecoder;
 use Illuminate\Support\Facades\Storage;
 use Redirect;
-use  App\Modules\Admin\Services\FileService;
+use Rhinoda\Admin\Services\FileService;
 use Schema;
-use App\Http\Requests\CreateFilesRequest;
-use App\Http\Requests\UpdateFilesRequest;
 use Illuminate\Http\Request;
 use function Sodium\add;
 
@@ -114,7 +112,7 @@ class FileController extends Controller
         return view('Admin::file.edit', compact([$name => 'name', 'item']));
     }
 
-    public function rename($name, UpdateFilesRequest $request)
+    public function rename($name, Request $request)
     {
 
         $newname = $request->newname;

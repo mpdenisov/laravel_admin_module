@@ -287,27 +287,29 @@ class ViewsBuilder
      */
     private function publish($template)
     {
-        $path = 'Modules' . DIRECTORY_SEPARATOR . 'Admin' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views';
-        if (! file_exists(app_path($path . DIRECTORY_SEPARATOR . $this->path))) {
-            mkdir(app_path($path . DIRECTORY_SEPARATOR . $this->path));
-            chmod(app_path($path), 0777);
+
+        $path = 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin';
+        if (! file_exists(base_path($path . DIRECTORY_SEPARATOR . $this->path))) {
+            mkdir(base_path($path . DIRECTORY_SEPARATOR . $this->path));
+            chmod(base_path($path), 0777);
         }
-        file_put_contents(app_path($path . DIRECTORY_SEPARATOR . $this->path . DIRECTORY_SEPARATOR . 'index.blade.php'),
+        file_put_contents(base_path($path . DIRECTORY_SEPARATOR . $this->path . DIRECTORY_SEPARATOR . 'index.blade.php'),
             $template[0]);
-        file_put_contents(app_path($path . DIRECTORY_SEPARATOR . $this->path . DIRECTORY_SEPARATOR . 'edit.blade.php'),
+        file_put_contents(base_path($path . DIRECTORY_SEPARATOR . $this->path . DIRECTORY_SEPARATOR . 'edit.blade.php'),
             $template[1]);
-        file_put_contents(app_path($path . DIRECTORY_SEPARATOR . $this->path . DIRECTORY_SEPARATOR . 'create.blade.php'),
+        file_put_contents(base_path($path . DIRECTORY_SEPARATOR . $this->path . DIRECTORY_SEPARATOR . 'create.blade.php'),
             $template[2]);
     }
 
     private function publishCustom($template)
     {
-        $path = 'Modules' . DIRECTORY_SEPARATOR . 'Admin' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views';
-        if (! file_exists(app_path($path . DIRECTORY_SEPARATOR . $this->path))) {
-            mkdir(app_path($path . DIRECTORY_SEPARATOR . $this->path));
-            chmod(app_path($path), 0777);
+
+        $path = 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . $this->path;
+        if (! file_exists(base_path($path))) {
+            mkdir(base_path($path ));
+            chmod(base_path($path), 0777);
         }
-        file_put_contents(app_path($path . DIRECTORY_SEPARATOR . $this->path . DIRECTORY_SEPARATOR . 'index.blade.php'),
+        file_put_contents(base_path($path. DIRECTORY_SEPARATOR . 'index.blade.php'),
             $template[0]);
     }
 

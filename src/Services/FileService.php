@@ -6,7 +6,7 @@
  * Time: 14:10
  */
 
-namespace App\Modules\Admin\Services;
+namespace Rhinoda\Admin\Services;
 
 
 class FileService

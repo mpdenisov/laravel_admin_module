@@ -3,12 +3,12 @@ namespace Rhinoda\Admin\Builders;
 
 use Illuminate\Support\Str;
 use Rhinoda\Admin\Cache\QuickCache;
-use Rhinoda\Admin\Models\Menu;
+use App\Models\Menu;
 
 class ControllerBuilder
 {
     // Controller namespace
-    private $namespace = 'App\Modules\Admin\Controllers';
+    private $namespace = 'App\Http\Controllers\Admin';
     // Template
     private $template;
     // Global names
@@ -156,6 +156,7 @@ class ControllerBuilder
      * Build relationships for forms
      * @return string
      */
+
     public function relationshipsBuilder()
     {
         if ($this->relationships == 0) {
@@ -212,10 +213,10 @@ class ControllerBuilder
                         $compact = str_replace('$RELATIONS$', $toReplace, $compact);
                     }
                 }
+                $first = true;
             }
             if ($this->enum > 0) {
                 if (! isset($first)) {
-                    $first = true;
                 }
                 foreach ($this->fields as $field) {
                     if ($field->type == 'enum') {
@@ -285,7 +286,7 @@ class ControllerBuilder
      */
     private function publish($template)
     {
-        $path = 'Modules' . DIRECTORY_SEPARATOR . 'Admin' . DIRECTORY_SEPARATOR . 'Controllers';
+        $path = 'Http' . DIRECTORY_SEPARATOR . 'Controllers' . DIRECTORY_SEPARATOR . 'Admin';
         if (! file_exists(app_path($path))) {
             mkdir(app_path($path));
             chmod(app_path($path), 0777);

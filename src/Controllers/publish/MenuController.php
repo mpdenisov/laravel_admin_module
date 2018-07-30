@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
-use App\Modules\Admin\Builders\ControllerBuilder;
-use App\Modules\Admin\Builders\MigrationBuilder;
-use App\Modules\Admin\Builders\ModelBuilder;
-use App\Modules\Admin\Builders\RequestBuilder;
-use App\Modules\Admin\Builders\ViewsBuilder;
-use App\Modules\Admin\Cache\QuickCache;
-use App\Modules\Admin\Fields\FieldsDescriber;
+use Rhinoda\Admin\Builders\ControllerBuilder;
+use Rhinoda\Admin\Builders\MigrationBuilder;
+use Rhinoda\Admin\Builders\ModelBuilder;
+use Rhinoda\Admin\Builders\RequestBuilder;
+use Rhinoda\Admin\Builders\ViewsBuilder;
+use Rhinoda\Admin\Cache\QuickCache;
+use Rhinoda\Admin\Fields\FieldsDescriber;
 use App\Models\Menu;
 
 class MenuController extends Controller

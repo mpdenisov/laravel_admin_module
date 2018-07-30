@@ -3,7 +3,7 @@
 namespace $NAMESPACE$;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Modules\Admin\Observers\UserActionsObserver;
+use Rhinoda\Admin\Observers\UserActionsObserver;
 $PASSWORDHASH_CALL$
 $DATEPICKERS_CALL$
 $SOFT_DELETE_CALL$

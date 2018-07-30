@@ -3,7 +3,7 @@ namespace Rhinoda\Admin\Builders;
 
 use Illuminate\Support\Str;
 use Rhinoda\Admin\Cache\QuickCache;
-use Rhinoda\Admin\Models\Menu;
+use App\Models\Menu;
 
 class ModelBuilder
 {

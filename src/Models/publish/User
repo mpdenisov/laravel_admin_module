@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Modules\Admin\Observers\UserActionsObserver;
+use Rhinoda\Admin\Observers\UserActionsObserver;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Rhinoda\Admin\Traits\UserRoleTrait;
-use  Rhinoda\Admin\Traits\FilesMorphTrait;
-use  Rhinoda\Admin\Traits\AdminPermissionsTrait;
+use Rhinoda\Admin\Traits\FilesMorphTrait;
+use Rhinoda\Admin\Traits\AdminPermissionsTrait;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 

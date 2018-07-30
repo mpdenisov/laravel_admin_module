@@ -4,6 +4,7 @@ namespace Rhinoda\Admin;
 
 use Illuminate\Support\ServiceProvider;
 use Rhinoda\Admin\Commands\AdminInstall;
+
 class AdminServiceProvider extends ServiceProvider
 {
     /**
@@ -31,31 +32,31 @@ class AdminServiceProvider extends ServiceProvider
             __DIR__ . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR . 'publish' . DIRECTORY_SEPARATOR . 'UsersLogs' => app_path('Models/UsersLogs.php'),
 
             // Adding Contollers
-            __DIR__ . DIRECTORY_SEPARATOR . 'Controllers' . DIRECTORY_SEPARATOR . 'publish'  => app_path('Modules/Admin/Controllers'),
+            __DIR__ . DIRECTORY_SEPARATOR . 'Controllers' . DIRECTORY_SEPARATOR . 'publish' => app_path('Modules/Admin/Controllers'),
             // Adding resource
-            __DIR__ . DIRECTORY_SEPARATOR . 'resources'   => app_path('Modules/Admin/resources'),
+            __DIR__ . DIRECTORY_SEPARATOR . 'resources' => app_path('Modules/Admin/resources'),
             // Adding Builders
-            __DIR__ . DIRECTORY_SEPARATOR . 'Builders' . DIRECTORY_SEPARATOR . 'publish' => app_path('Modules/Admin/Builders'),
+            //__DIR__ . DIRECTORY_SEPARATOR . 'Builders' . DIRECTORY_SEPARATOR . 'publish' => app_path('Modules/Admin/Builders'),
             // Adding Cache
-            __DIR__ . DIRECTORY_SEPARATOR . 'Cache' . DIRECTORY_SEPARATOR . 'publish' => app_path('Modules/Admin/Cache'),
+            //  __DIR__ . DIRECTORY_SEPARATOR . 'Cache' . DIRECTORY_SEPARATOR . 'publish' => app_path('Modules/Admin/Cache'),
             // Adding Fields
-            __DIR__ . DIRECTORY_SEPARATOR . 'Fields'.DIRECTORY_SEPARATOR . 'publish'  => app_path('Modules/Admin/Fields'),
+            //  __DIR__ . DIRECTORY_SEPARATOR . 'Fields'.DIRECTORY_SEPARATOR . 'publish'  => app_path('Modules/Admin/Fields'),
             // Adding Requests
-            __DIR__ . DIRECTORY_SEPARATOR . 'Requests'.DIRECTORY_SEPARATOR . 'publish'  => app_path('Modules/Admin/Requests'),
+            //  __DIR__ . DIRECTORY_SEPARATOR . 'Requests'.DIRECTORY_SEPARATOR . 'publish'  => app_path('Modules/Admin/Requests'),
             // Adding Templates
-            __DIR__ . DIRECTORY_SEPARATOR . 'Templates' => app_path('Modules/Admin/Templates'),
+            //   __DIR__ . DIRECTORY_SEPARATOR . 'Templates' => app_path('Modules/Admin/Templates'),
             //Adding Traits
-            __DIR__ . DIRECTORY_SEPARATOR . 'Traits'.DIRECTORY_SEPARATOR . 'publish'  => app_path('Modules/Admin/Traits'),
+            //  __DIR__ . DIRECTORY_SEPARATOR . 'Traits'.DIRECTORY_SEPARATOR . 'publish'  => app_path('Modules/Admin/Traits'),
             // Adding Controller.php
-            __DIR__ . DIRECTORY_SEPARATOR . 'Controller.php'  => app_path('Modules/Controller.php'),
+            __DIR__ . DIRECTORY_SEPARATOR . 'Controller.php' => app_path('Modules/Controller.php'),
             // Adding Configs
-            __DIR__ . DIRECTORY_SEPARATOR . 'config'  => config_path(),
+            __DIR__ . DIRECTORY_SEPARATOR . 'config' => config_path(),
             // Adding Providers
-            __DIR__ . DIRECTORY_SEPARATOR . 'Providers'. DIRECTORY_SEPARATOR . 'ModulesServiceProvider' => app_path('Providers/ModulesServiceProvider.php'),
+            __DIR__ . DIRECTORY_SEPARATOR . 'Providers' . DIRECTORY_SEPARATOR . 'ModulesServiceProvider' => app_path('Providers/ModulesServiceProvider.php'),
             // Adding Observer
-            __DIR__ . DIRECTORY_SEPARATOR . 'Observers'.DIRECTORY_SEPARATOR . 'publish'  => app_path('Modules/Admin/Observers'),
+            //   __DIR__ . DIRECTORY_SEPARATOR . 'Observers'.DIRECTORY_SEPARATOR . 'publish'  => app_path('Modules/Admin/Observers'),
             // Adding Services
-            __DIR__ . DIRECTORY_SEPARATOR . 'Services'.DIRECTORY_SEPARATOR . 'publish'  => app_path('Modules/Admin/Services'),
+            //   __DIR__ . DIRECTORY_SEPARATOR . 'Services'.DIRECTORY_SEPARATOR . 'publish'  => app_path('Modules/Admin/Services'),
         ], 'RhinodAdmin');
 
 
