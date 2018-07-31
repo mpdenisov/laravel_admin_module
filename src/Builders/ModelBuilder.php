@@ -176,14 +176,14 @@ class ModelBuilder
                 $relLine = '
     public function $RELATIONSHIP$()
     {
-        return $this->hasOne(\'App\$RELATIONSHIP_MODEL$\', \'id\', \'$RELATIONSHIP$_id\');
+        return $this->hasOne(\'App\Models\$RELATIONSHIP_MODEL$\', \'id\', \'$RELATIONSHIP$_id\');
     }' . "\r\n\r\n";
                 $relLine = str_replace([
                     '$RELATIONSHIP$',
-                    '$RELATIONSHIP_MODEL$'
+                    '$RELATIONSHIP_MODEL$',
                 ], [
-                    strtolower($menu->name),
-                    ucfirst(Str::camel($menu->name))
+                    strtolower($menu->plural_name),
+                    ucfirst(Str::camel($menu->singular_name))
                 ], $relLine);
                 $relationships .= $relLine;
             }
