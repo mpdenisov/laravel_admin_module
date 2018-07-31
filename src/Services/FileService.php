@@ -11,7 +11,7 @@ namespace Rhinoda\Admin\Services;
 
 class FileService
 {
-    public static function pathcreator($dir)
+    public static function pathCreator($dir)
     {
 
         $path = '';
@@ -24,7 +24,7 @@ class FileService
         return $path;
     }
 
-    public static function parentroutecreator($dir)
+    public static function parentRouteCreator($dir)
     {
         $path = '';
         for ($i = 0; $i < count($dir); $i++) {
@@ -44,7 +44,7 @@ class FileService
         return $path;
     }
 
-    public static function deleteitem($path, $name)
+    public static function deleteItem($path, $name)
     {
         if (is_dir(public_path('/admin' . $path . '/' . $name))) {
 
@@ -54,7 +54,7 @@ class FileService
         }
     }
 
-    public static function namecreator($dir)
+    public static function nameCreator($dir)
     {
         if (count($dir) > 1) {
             $name = end($dir);

@@ -40,9 +40,9 @@ class FileController extends Controller
 
         $pathroute = $name;
         $dir = explode("*", $name);
-        $name = FileService::namecreator($dir);
+        $name = FileService::nameCreator($dir);
         unset($dir[count($dir) - 1]);
-        $path = FileService::pathcreator($dir);
+        $path = FileService::pathCreator($dir);
         $files = scandir(public_path('admin' . $path . '/' . $name));
         $path = $pathroute;
         unset($files[1]);
@@ -51,7 +51,7 @@ class FileController extends Controller
 
             return redirect(route('files'));
         }
-        $files['backpath']=FileService::parentroutecreator($dir);
+        $files['backpath']=FileService::parentRouteCreator($dir);
 
         return view('Admin::file.index', compact(['files', 'name', 'path']));
 
@@ -61,9 +61,9 @@ class FileController extends Controller
     {
         $pathroute = $name;
         $dir = explode("*", $name);
-        $name = FileService::namecreator($dir);
+        $name = FileService::nameCreator($dir);
         unset($dir[count($dir) - 1]);
-        $path = FileService::pathcreator($dir);
+        $path = FileService::pathCreator($dir);
         mkdir(public_path('admin' . $path . '/' . $name . '/'.$request->name), 0700);
         return redirect(route('folder', $folder = $pathroute));
     }
@@ -72,9 +72,9 @@ class FileController extends Controller
     {
         $file = $request->file('file');
         $dir = explode("*", $name);
-        $name = FileService::namecreator($dir);
+        $name = FileService::nameCreator($dir);
         unset($dir[count($dir) - 1]);
-        $path = FileService::pathcreator($dir);
+        $path = FileService::pathCreator($dir);
         $upload_success = $request->file('file')->move(public_path('/admin/' . $path . '/' . $name), $file->getClientOriginalName());
         if ($upload_success) {
             return response()->json($upload_success, 200);
@@ -91,11 +91,11 @@ class FileController extends Controller
 
 
         $dir = explode("*", $name);
-        $name = FileService::namecreator($dir);
+        $name = FileService::nameCreator($dir);
         unset($dir[count($dir) - 1]);
-        $path = FileService::pathcreator($dir);
-        $pathroute = FileService::parentroutecreator($dir);
-        FileService::deleteitem($path, $name);
+        $path = FileService::pathCreator($dir);
+        $pathroute = FileService::parentRouteCreator($dir);
+        FileService::deleteItem($path, $name);
 
         return redirect(route('folder', $folder = $pathroute));
     }
@@ -117,10 +117,10 @@ class FileController extends Controller
 
         $newname = $request->newname;
         $dir = explode("*", $name);
-        $name = FileService::namecreator($dir);
+        $name = FileService::nameCreator($dir);
         unset($dir[count($dir) - 1]);
-        $path = FileService::pathcreator($dir);
-        $parentroute = FileService::parentroutecreator($dir);
+        $path = FileService::pathCreator($dir);
+        $parentroute = FileService::parentRouteCreator($dir);
         rename(public_path('/admin' . $path . '/' . $name), public_path('/admin' . $path . '/' . $newname));
 
         return redirect(route('folder', $folder = $parentroute));
@@ -131,11 +131,11 @@ class FileController extends Controller
     {
         $newpath = $request->newpath;
         $dir = explode("*", $name);
-        $name = FileService::namecreator($dir);
+        $name = FileService::nameCreator($dir);
         unset($dir[count($dir) - 1]);
-        $path = FileService::pathcreator($dir);
+        $path = FileService::pathCreator($dir);
         $dir = explode("/", $newpath);
-        $parentroute = FileService::parentroutecreator($dir);
+        $parentroute = FileService::parentRouteCreator($dir);
 
         rename(public_path('/admin' . $path . '/' . $name), public_path($newpath . '/' . $name));
         return redirect(route('folder', $folder = $parentroute));
