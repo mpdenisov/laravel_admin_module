@@ -1,7 +1,13 @@
-
+<a href='https://svgshare.com/s/7d4' ><img src='https://svgshare.com/i/7d4.svg' title='' /></a>
+ 
+[![GitHub issues](https://img.shields.io/github/issues/mpdenisov/laravel_admin_module.svg)](https://github.com/mpdenisov/laravel_admin_module/issues)
+[![GitHub forks](https://img.shields.io/github/forks/mpdenisov/laravel_admin_module.svg)](https://github.com/mpdenisov/laravel_admin_module/network)
+[![GitHub stars](https://img.shields.io/github/stars/mpdenisov/laravel_admin_module.svg)](https://github.com/mpdenisov/laravel_admin_module/stargazers)
+[![GitHub license](https://img.shields.io/github/license/mpdenisov/laravel_admin_module.svg)](https://github.com/mpdenisov/laravel_admin_module)
+[![Laravel Support](https://img.shields.io/badge/Laravel-5.6-brightgreen.svg)]()
 ## Rhinoda Admin Module
 
-Role management and creating CRUD controllers
+Role management,creating CRUD controllers and file manager  for Laravel framework
 
 ## Contents
 - [Installation](#installation)
@@ -115,19 +121,19 @@ php artisan migrate
      
    * Model in App\Models folder
    
-   * Controller in App\Modules\Admin\Controllers folder
+   * Controller in App\Http\Controllers\Admin folder
    
-   * Requests in  App\Modules\Admin\Requests folder
+   * Requests in  App\Http\Requests folder
    
-   * views  in  App\Modules\Admin\resource\views\\[crud_name] folder
+   * views  in  resource\views\admin\\[crud_name] folder
      
    ### Controller
      
    After creation custom controller, immediately created:
    
-   * Controller in App\Modules\Admin\Controllers folder
+   * Controller in App\Http\Controllers\Admin folder
    
-   * views  in  App\Modules\Admin\resource\views\\[crud_name] folder
+   * views  in  resource\views\admin\\[crud_name] folder
    
    ### File management
    
