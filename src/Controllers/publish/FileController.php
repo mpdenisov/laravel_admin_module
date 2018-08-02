@@ -115,13 +115,14 @@ class FileController extends Controller
     public function rename($name, Request $request)
     {
 
+        $extention = \File::extension($name);
         $newname = $request->newname;
         $dir = explode("*", $name);
         $name = FileService::nameCreator($dir);
         unset($dir[count($dir) - 1]);
         $path = FileService::pathCreator($dir);
         $parentroute = FileService::parentRouteCreator($dir);
-        rename(public_path('/admin' . $path . '/' . $name), public_path('/admin' . $path . '/' . $newname));
+        rename(public_path('/admin' . $path . '/' . $name), public_path('/admin' . $path . '/' . $newname . '.' . $extention));
 
         return redirect(route('folder', $folder = $parentroute));
     }

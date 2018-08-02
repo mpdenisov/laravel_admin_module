@@ -60,33 +60,6 @@ class AdminInstall extends Command
         $adminRole->description  = 'User is allowed to manage and edit other users';
         $adminRole->save();
 
-        $hostRole = new Role();
-        $hostRole->name         = Role::HOST;
-        $hostRole->display_name = 'Host';
-        $hostRole->description  = 'User that posts dishes';
-        $hostRole->save();
-
-        $clientRole = new Role();
-        $clientRole->name         = Role::CLIENT;
-        $clientRole->display_name = 'Client';
-        $clientRole->description  = 'User that looks for dishes';
-        $clientRole->save();
-
-        $createDishPermission = new Permission();
-        $createDishPermission->name         = 'create-dish';
-        $createDishPermission->display_name = 'Create Dishes';
-        $createDishPermission->description  = 'create new dinner dish';
-        $createDishPermission->save();
-
-        $updateDishPermission = new Permission();
-        $updateDishPermission->name         = 'update-dish';
-        $updateDishPermission->display_name = 'Update Dishes';
-        $updateDishPermission->description  = 'update existing dishes';
-        $updateDishPermission->save();
-
-        $hostRole->attachPermission($createDishPermission);
-        $hostRole->attachPermission($updateDishPermission);
-
         $admin = User::create([
             'first_name' => $this->ask('Administrator name'),
             'email' => $this->ask('Administrator email'),

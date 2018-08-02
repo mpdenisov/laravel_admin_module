@@ -9,10 +9,10 @@
             <form  style="display: none" action="{{route('folder.create',$folder=$path)}}" class="create-folder" method="GET" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="row">
-                    <div class="col-md-12"><label> name for folder</label></div>
+                    <div class="col-md-12 control-label"><label> Name for folder</label></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12"><input name="name" type="text"></div>
+                    <div class="col-md-3"><input class="form-control" name="name" type="text"></div>
                 </div>
                 <br>
                 <div class="row">
