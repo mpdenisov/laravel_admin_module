@@ -1,4 +1,5 @@
 <?php
+
 namespace Rhinoda\Admin\Builders;
 
 use Illuminate\Support\Str;
@@ -30,17 +31,38 @@ class ViewsBuilder
      */
     public function build()
     {
-        $cache          = new QuickCache();
-        $cached         = $cache->get('fieldsinfo');
+        $cache = new QuickCache();
+        $cached = $cache->get('fieldsinfo');
         $this->template = [
             0 => __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'view_index',
             1 => __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'view_edit',
             2 => __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'view_create',
         ];
         $this->singular_name = $cached['singular_name'];
-        $this->plural_name   = $cached['plural_name'];
-        $this->fields        = $cached['fields'];
-        $this->files         = $cached['files'];
+        $this->plural_name = $cached['plural_name'];
+        $this->fields = $cached['fields'];
+        $this->files = $cached['files'];
+        $this->names();
+        $template = (array)$this->loadTemplate();
+        $template = $this->buildParts($template);
+        $this->publish($template);
+    }
+
+    public function buildMessenger()
+    {
+
+        $cache = new QuickCache();
+        $cached = $cache->get('fieldsinfo');
+        $this->template = [
+            0 => __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'view_index',
+            1 => __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'view_edit',
+            2 => __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'view_user_message_create',
+
+        ];
+        $this->singular_name = $cached['singular_name'];
+        $this->plural_name = $cached['plural_name'];
+        $this->fields = $cached['fields'];
+        $this->files = $cached['files'];
         $this->names();
         $template = (array)$this->loadTemplate();
         $template = $this->buildParts($template);
@@ -49,7 +71,7 @@ class ViewsBuilder
 
     public function buildCustom($name)
     {
-        $this->singular_name     = $name;
+        $this->singular_name = $name;
         $this->template = [
             0 => __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'customView_index',
             1 => '',
@@ -70,8 +92,12 @@ class ViewsBuilder
             0 => $this->template[0] != '' ? file_get_contents($this->template[0]) : '',
             1 => $this->template[1] != '' ? file_get_contents($this->template[1]) : '',
             2 => $this->template[2] != '' ? file_get_contents($this->template[2]) : '',
+
+
         ];
     }
+
+
 
     /**
      * Build views templates parts
@@ -123,6 +149,8 @@ class ViewsBuilder
             $this->files != 0 ? "'files' => true, " : ''
         ], $template[2]);
 
+        // Create template
+
         return $template;
     }
 
@@ -131,13 +159,13 @@ class ViewsBuilder
      */
     private function buildTable()
     {
-        $used     = [];
+        $used = [];
         $headings = '';
-        $columns  = '';
+        $columns = '';
         foreach ($this->fields as $field) {
             // Check if there is no duplication for radio and checkbox.
             // Password fields are excluded from the table too.
-            if (! in_array($field->title, $used)
+            if (!in_array($field->title, $used)
                 && $field->type != 'password'
                 && $field->type != 'textarea'
                 && $field->show == 1
@@ -157,8 +185,10 @@ class ViewsBuilder
             }
         }
         $this->headings = $headings;
-        $this->columns  = $columns;
+        $this->columns = $columns;
     }
+
+
 
     /**
      *  Build edit.blade.php form
@@ -219,7 +249,7 @@ class ViewsBuilder
         $form = '';
         foreach ($this->fields as $field) {
             $title = addslashes($field->label);
-            $key   = $field->title;
+            $key = $field->title;
             if (in_array($field->validation, $this->starred)) {
                 $title .= '*';
             }
@@ -260,10 +290,10 @@ class ViewsBuilder
      */
     private function names()
     {
-        $camelCase           = ucfirst(Str::camel($this->singular_name));
+        $camelCase = ucfirst(Str::camel($this->singular_name));
         $this->singular_name = strtolower($this->singular_name);
-        $this->plural_name   = strtolower($this->plural_name);
-        $this->path          = $this->singular_name;
+        $this->plural_name = strtolower($this->plural_name);
+        $this->path = $this->singular_name;
     }
 
     /**
@@ -288,12 +318,12 @@ class ViewsBuilder
     private function publish($template)
     {
 
-        if (! file_exists(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin'))) {
-            mkdir(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' ));
+        if (!file_exists(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin'))) {
+            mkdir(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin'));
             chmod(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin'), 0777);
         }
         $path = 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin';
-        if (! file_exists(base_path($path . DIRECTORY_SEPARATOR . $this->path))) {
+        if (!file_exists(base_path($path . DIRECTORY_SEPARATOR . $this->path))) {
             mkdir(base_path($path . DIRECTORY_SEPARATOR . $this->path));
             chmod(base_path($path), 0777);
         }
@@ -303,20 +333,21 @@ class ViewsBuilder
             $template[1]);
         file_put_contents(base_path($path . DIRECTORY_SEPARATOR . $this->path . DIRECTORY_SEPARATOR . 'create.blade.php'),
             $template[2]);
+
     }
 
     private function publishCustom($template)
     {
-        if (! file_exists(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin'))) {
-            mkdir(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' ));
+        if (!file_exists(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin'))) {
+            mkdir(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin'));
             chmod(base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin'), 0777);
         }
         $path = 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . $this->path;
-        if (! file_exists(base_path($path))) {
-            mkdir(base_path($path ));
+        if (!file_exists(base_path($path))) {
+            mkdir(base_path($path));
             chmod(base_path($path), 0777);
         }
-        file_put_contents(base_path($path. DIRECTORY_SEPARATOR . 'index.blade.php'),
+        file_put_contents(base_path($path . DIRECTORY_SEPARATOR . 'index.blade.php'),
             $template[0]);
     }
 

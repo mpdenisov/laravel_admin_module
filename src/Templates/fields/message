@@ -1,0 +1,6 @@
+<div class="form-group">
+        <div class='col-md-2'>$LABEL$</div>
+    <div class="col-md-10">
+        {{$data->$TITLE$}}
+    </div>
+</div>

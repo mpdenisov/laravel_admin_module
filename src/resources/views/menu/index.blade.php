@@ -32,6 +32,8 @@
             <a href="{{ route('menu.crud') }}" class="btn btn-primary">{{ trans('Admin::qa.menus-index-new_crud') }}</a>
             <a href="{{ route('menu.custom') }}" class="btn btn-primary">{{ trans('Admin::qa.menus-index-new_custom') }}</a>
             <a href="{{ route('menu.parent') }}" class="btn btn-primary">{{ trans('Admin::qa.menus-index-new_parent') }}</a>
+            <a href="{{ route('menu.messenger') }}" class="btn btn-primary">Create Messenger</a>
+          @if(\Illuminate\Support\Facades\Schema::hasTable('messages'))  <a href="{{ route('deleteModule') }}" class="btn btn-primary">Delete Messenger</a>@endif
         </div>
     </div>
 

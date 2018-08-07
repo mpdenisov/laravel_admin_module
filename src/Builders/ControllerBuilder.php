@@ -44,6 +44,25 @@ class ControllerBuilder
         $this->publish($template);
     }
 
+    public function buildMessenger(){
+        $cache               = new QuickCache();
+        $cached              = $cache->get('fieldsinfo');
+        $this->template      = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'messengerController';
+        $this->singular_name = $cached['singular_name'];
+        $this->plural_name   = $cached['plural_name'];
+        $this->fields        = $cached['fields'];
+        $this->relationships = $cached['relationships'];
+        $this->files         = $cached['files'];
+        $this->enum          = $cached['enum'];
+        $this->names();
+        $template = (string)$this->loadTemplate();
+        $template = $this->buildParts($template);
+        $this->publish($template);
+        $this->template=__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'Mailable';
+        $template = (string)$this->loadTemplate();
+        $this->publishMailable($template);
+    }
+
     public function buildCustom($name)
     {
         $this->template = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'customController';
@@ -100,8 +119,8 @@ class ControllerBuilder
             $this->compactBuilder(),
             $this->compactEditBuilder(),
             $this->relationshipsNamespaces(),
-            $this->files > 0 ? 'use App\Modules\Admin\Traits\FileUploadTrait;' : '',
-            $this->files > 0 ? '$request = $this->saveFiles($request);' : '',
+            $this->files > 0 ? 'use Rhinoda\Admin\Traits\FileUploadTrait;' : '',
+            $this->files > 0 ? '$request = FileUploadTrait::saveFiles($request);' : '',
             $this->enum > 0 ? $this->enum() : '',
         ], $template);
 
@@ -292,6 +311,12 @@ class ControllerBuilder
             chmod(app_path($path), 0777);
         }
         file_put_contents(app_path($path . DIRECTORY_SEPARATOR . $this->fileName),
+            $template);
+    }
+    private function publishMailable($template)
+    {
+        $path = 'Http' . DIRECTORY_SEPARATOR . 'Controllers' . DIRECTORY_SEPARATOR . 'Admin';
+        file_put_contents(app_path($path . DIRECTORY_SEPARATOR . 'Messenger.php'),
             $template);
     }
 

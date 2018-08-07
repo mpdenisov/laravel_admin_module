@@ -34,6 +34,20 @@ class MigrationBuilder
         $template = $this->buildParts($template);
         $this->publish($template);
     }
+    public function buildMessanger()
+    {
+        $cache          = new QuickCache();
+        $cached         = $cache->get('fieldsinfo');
+        $this->template = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . 'migration';
+        $this->name     = 'Message';
+        $this->fields   = 'Message';
+        $this->soft     = 'Message';
+        $this->names();
+        $template = (string) $this->loadTemplate();
+        $template = $this->buildParts($template);
+        $this->publish($template);
+    }
+
 
     /**
      *  Load migration template

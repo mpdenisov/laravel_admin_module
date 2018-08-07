@@ -2,13 +2,16 @@
 
 namespace App\Modules\Admin\Controllers;
 
+use App\Mail\test;
 use App\Modules\Controller;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Rhinoda\Admin\Builders\ControllerBuilder;
+use Rhinoda\Admin\Builders\MessageBuilder;
 use Rhinoda\Admin\Builders\MigrationBuilder;
 use Rhinoda\Admin\Builders\ModelBuilder;
 use Rhinoda\Admin\Builders\RequestBuilder;
@@ -26,6 +29,7 @@ class MenuController extends Controller
      */
     public function index()
     {
+
         $menusList = Menu::with(['children'])
             ->where('menu_type', '!=', 0)
             ->where('parent_id', null)
@@ -299,10 +303,101 @@ class MenuController extends Controller
         return redirect()->route('menu');
     }
 
+    public function createMessenger(){
+        $fieldTypes = FieldsDescriber::types();
+        $fieldValidation = FieldsDescriber::validation();
+        $defaultValuesCbox = FieldsDescriber::default_cbox();
+        $menusSelect = Menu::whereNotIn('menu_type', [2, 3])->pluck('title', 'id');
+        return view('Admin::menu.createMessenger',  compact('fieldTypes', 'fieldValidation', 'defaultValuesCbox','menusSelect'));
+    }
+    public function insertMessenger(Request $request){
+
+
+        $cache = new QuickCache();
+        $cached = [];
+        $cached['relationships'] = 0;
+        $cached['files'] = 0;
+        $cached['password'] = 0;
+        $cached['date'] = 0;
+        $cached['datetime'] = 0;
+        $cached['enum'] = 0;
+        $fields = [];
+        if(!is_null($request->f_type)){
+            foreach ($request->f_type as $index => $field) {
+                $fields[$index] = [
+                    'type' => $field,
+                    'title' => $request->f_title[$index],
+                    'label' => $request->f_label[$index],
+                    'helper' => $request->f_helper[$index],
+                    'validation' => $request->f_validation[$index],
+                    'value' => $request->f_value[$index],
+                    'default' => $request->f_default[$index],
+                    'relationship_id' => $request->has('f_relationship.' . $index) ? $request->f_relationship[$index] : '',
+                    'relationship_name' => $request->has('f_relationship.' . $index) ? isset($models[$request->f_relationship[$index]]) ? $models[$request->f_relationship[$index]] : '' : '',
+                    'relationship_field' => $request->has('f_relationship_field.' . $request->f_relationship[$index]) ? $request->f_relationship_field[$request->f_relationship[$index]] : '',
+                    'texteditor' => $request->f_texteditor[$index],
+                    'size' => $request->f_size[$index] * 1024,
+                    'show' => $request->f_show[$index],
+                    'dimension_h' => $request->f_dimension_h[$index],
+                    'dimension_w' => $request->f_dimension_w[$index],
+                    'enum' => $request->f_enum[$index],
+                ];
+                if ($field == 'relationship') {
+                    $cached['relationships']++;
+                } elseif ($field == 'file' || $field == 'photo') {
+                    $cached['files']++;
+                } elseif ($field == 'password') {
+                    $cached['password']++;
+                } elseif ($field == 'date') {
+                    $cached['date']++;
+                } elseif ($field == 'datetime') {
+                    $cached['datetime']++;
+                } elseif ($field == 'enum') {
+                    $cached['enum']++;
+                }
+            }
+        }
+        $menu = Menu::create([
+            'position' => 0,
+            'menu_type' => 1,
+            'icon' => 'fa-database',
+            'singular_name' => 'message',
+            'plural_name' => 'messages',
+            'title' => 'message',
+            'parent_id' => null,
+
+        ]);
+        $cached['fields'] = $fields;
+        $cached['singular_name'] = 'message';
+        $cached['plural_name'] = 'messages';
+        $cached['soft_delete'] = $request->soft;
+        $cache->put('fieldsinfo', $cached);
+        $migrationBuilder = new MigrationBuilder();
+        $migrationBuilder->build();
+        $modelBuilder = new ModelBuilder();
+        $modelBuilder->build();
+        $requestBuilder = new RequestBuilder();
+        $requestBuilder->build();
+        $controllerBuilder = new ControllerBuilder();
+        $controllerBuilder->buildMessenger();
+        $viewsBuilder = new ViewsBuilder();
+        $viewsBuilder->buildMessenger();
+        $messageBuilder= new MessageBuilder();
+        $messageBuilder->build();
+
+        // Call migrations
+        Artisan::call('migrate');
+
+        // Destroy our cache file
+        $cache->destroy('fieldsinfo');
+
+        return redirect(config('admin.homeRoute'));
+    }
     public function edit($id)
     {
         $menu = Menu::findOrFail($id);
-        $parentsSelect = Menu::where('menu_type', 2)->pluck('title', 'id')->prepend('-- no parent --', '');
+        $parentsSelect = Menu::where('menu_type', 2)->pluck('title', 'id')->prepend('--
+         no parent --', '');
         $roles = Role::all();
 
         return view('Admin::menu.edit', compact('menu', 'parentsSelect', 'roles'));

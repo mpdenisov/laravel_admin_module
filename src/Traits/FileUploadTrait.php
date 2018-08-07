@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Traits;
+namespace Rhinoda\Admin\Traits;
 
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -11,7 +11,7 @@ trait FileUploadTrait
     /**
      * File upload trait used in controllers to upload files
      */
-    public function saveFiles(Request $request)
+    public static function saveFiles(Request $request)
     {
         if (!file_exists(public_path('uploads'))) {
             mkdir(public_path('uploads'), 0777);

@@ -28,7 +28,7 @@ class FileController extends Controller
         $files = scandir(public_path('admin'));
         unset($files[0]);
         unset($files[1]);
-        $files['backpath']=null;
+        $files['backpath'] = null;
         $path = 'general_folder';
         $name = '';
 
@@ -51,7 +51,7 @@ class FileController extends Controller
 
             return redirect(route('files'));
         }
-        $files['backpath']=FileService::parentRouteCreator($dir);
+        $files['backpath'] = FileService::parentRouteCreator($dir);
 
         return view('Admin::file.index', compact(['files', 'name', 'path']));
 
@@ -64,7 +64,7 @@ class FileController extends Controller
         $name = FileService::nameCreator($dir);
         unset($dir[count($dir) - 1]);
         $path = FileService::pathCreator($dir);
-        mkdir(public_path('admin' . $path . '/' . $name . '/'.$request->name), 0700);
+        mkdir(public_path('admin' . $path . '/' . $name . '/' . $request->name), 0700);
         return redirect(route('folder', $folder = $pathroute));
     }
 
@@ -114,7 +114,6 @@ class FileController extends Controller
 
     public function rename($name, Request $request)
     {
-
         $extention = \File::extension($name);
         $newname = $request->newname;
         $dir = explode("*", $name);
