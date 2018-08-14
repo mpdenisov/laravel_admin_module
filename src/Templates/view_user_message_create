@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Creating Message</title>
+    <link rel="stylesheet"
+          href="{{ url('admin/css') }}/bootstrap.min.css"/>
+</head>
+<body class="container">
+<br>
+<br>
+<br>
+{!! Form::open(array($FILES$'route' => '$PLURAL$.store', 'id' => 'form-with-validation', 'class' => 'form-horizontal')) !!}
+
+$FORMFIELDS$
+
+<div class="form-group">
+    <div class="col-sm-10 col-sm-offset-2">
+        {!! Form::submit( trans('Admin::templates.templates-view_create-create') , array('class' => 'btn btn-primary')) !!}
+    </div>
+</div>
+
+{!! Form::close() !!}
+
+</body>
+</html>

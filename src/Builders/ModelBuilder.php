@@ -51,6 +51,7 @@ class ModelBuilder
         $this->publish($template);
     }
 
+
     /**
      *  Load model template
      */

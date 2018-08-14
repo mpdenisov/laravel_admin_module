@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Console\Command;
 use App\Models\Menu;
 use App\Models\Role;
+use Illuminate\Support\Facades\Artisan;
 
 class AdminInstall extends Command
 {
@@ -36,7 +37,7 @@ class AdminInstall extends Command
      */
     public function handle()
     {
-
+        Artisan::call('migrate:fresh');
         $this->createRole();
         $this->info('Create first user');
         $this->createUser();

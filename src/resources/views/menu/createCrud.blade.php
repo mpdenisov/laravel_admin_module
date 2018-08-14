@@ -77,6 +77,8 @@
         </div>
     </div>
 
+
+
     <hr/>
 
     <h3>{{ trans('Admin::qa.menus-createCrud-add_fields') }}</h3>

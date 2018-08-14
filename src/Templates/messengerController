@@ -1,0 +1,99 @@
+<?php
+
+namespace $NAMESPACE$;
+use App\Http\Controllers\Admin\Messenger;
+use App\Modules\Admin\Controllers\AdminController;
+use App\Models\Role;
+use Redirect;
+use Schema;
+use App\Models\$MODEL$;
+use Rhinoda\Admin\Services\MessageServices;
+use App\Http\Requests\$CREATEREQUESTNAME$;
+use App\Http\Requests\$UPDATEREQUESTNAME$;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
+$FILETRAIT$
+$RELATIONSHIP_NAMESPACES$
+
+class $CLASS$ extends AdminController {
+
+	/**
+	 * Display a listing of $PLURAL$
+	 *
+     * @param Request $request
+     *
+     * @return \Illuminate\View\View
+	 */
+	public function index(Request $request)
+    {
+        $INDEXGET$
+
+		return view('admin.$SINGULAR$.index', compact('$PLURAL$'));
+	}
+
+	/**
+	 * Show the form for creating a new $SINGULAR$
+	 *
+     * @return \Illuminate\View\View
+	 */
+	public function create()
+	{
+	    $RELATIONSHIPS$
+	    $ENUM$
+	    return view('admin.$SINGULAR$.create'$RELATIONSHIP_COMPACT$);
+	}
+
+	/**
+	 * Store a newly created $SINGULAR$ in storage.
+	 *
+     * @param $CREATEREQUESTNAME$|Request $request
+	 */
+	public function store($CREATEREQUESTNAME$ $request)
+	{
+	    $FILESAVING$
+		$MODEL$::create($request->all());
+        Mail::send(new Messenger($request));
+        if(!Role::ADMIN){
+            return redirect()->route('$PLURAL$.create' );
+        }
+		return redirect()->route(config('admin.route').'.$PLURAL$.index');
+	}
+
+
+	/**
+	 * Remove the specified $SINGULAR$ from storage.
+	 *
+	 * @param  int  $id
+	 */
+	public function destroy($id)
+	{
+		$MODEL$::destroy($id);
+
+		return redirect()->route(config('admin.route').'.$PLURAL$.index');
+	}
+
+    /**
+     * Mass delete function from index page
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function massDelete(Request $request)
+    {
+        if ($request->get('toDelete') != 'mass') {
+            $toDelete = json_decode($request->get('toDelete'));
+            $MODEL$::destroy($toDelete);
+        } else {
+            $MODEL$::whereNotNull('id')->delete();
+        }
+
+        return redirect()->route(config('admin.route').'.$PLURAL$.index');
+    }
+
+    public function  deleteModule()
+    {
+        MessageServices::delete();
+        return redirect()->route('menu');
+    }
+
+}
